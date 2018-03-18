@@ -29,7 +29,7 @@ exit
 EOF
 
 # Main Loop
-while [ $run -lt 2 ]
+while [ $run -lt 16 ]
 do
   rerun=0
 
@@ -41,7 +41,7 @@ do
 
   # Sub loop (for averages)
 
-  while [ $rerun -lt 2 ]
+  while [ $rerun -lt 4 ]
   do
 
     ssh -i $key_path ubuntu@$client_dns <<EOF
@@ -86,11 +86,6 @@ echo "-- END --" >> results.txt
 # Run utilization script
 echo "-- UTILIZATION --" >> results.txt
 ./collectl/utilization.sh ./collectl/perfdata.txt >> results.txt
-echo "-- END --" >> results.txt
-
-# Pipe iperf times into results
-echo "-- IPERF --" >> results.txt
-iperf -s >> results.txt
 echo "-- END --" >> results.txt
 
 echo "" >> results.txt
